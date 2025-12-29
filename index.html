@@ -1,16 +1,25 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>LP Collection</title>
-  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- 🔥 여기다 넣는 거다 -->
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<h1>LP Collection</h1>
-<input id="search" placeholder="앨범 / 가수 검색">
+<div class="container">
+  <header>
+    <h1>LP Collection</h1>
 
-<div id="album-list"></div>
+    <div class="search-box">
+      <input id="search" placeholder="앨범 / 가수 검색">
+    </div>
+  </header>
+
+  <div id="album-list" class="lp-grid"></div>
+</div>
 
 <script src="js/main.js"></script>
 </body>
