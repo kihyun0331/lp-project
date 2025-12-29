@@ -47,57 +47,40 @@ h1 {
   position: relative;
   background: #151515;
   border-radius: 14px;
-  overflow: hidden;
+  overflow: visible; /* 🔥 중요 */
   cursor: pointer;
   transform: rotate(-0.6deg);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
 
+/* 카드가 왼쪽으로 */
 .lp-card:hover {
-  transform: rotate(0deg) translateY(-6px);
+  transform: rotate(0deg) translateX(-14px) translateY(-6px);
   box-shadow: 0 20px 40px rgba(0,0,0,0.6);
 }
 
-/* ===== Image ===== */
-.lp-card img {
-  width: 100%;
-  height: 240px;          /* 🔥 이게 핵심 */
-  object-fit: cover;      /* 🔥 이게 핵심 */
-  display: block;
-}
-
-/* ===== Info ===== */
-.lp-card h3 {
-  font-size: 16px;
-  margin: 12px 12px 4px;
-}
-
-.lp-card p {
-  font-size: 13px;
-  opacity: 0.8;
-  margin: 0 12px;
-}
-
-.lp-card span {
-  display: inline-block;
-  font-size: 11px;
-  margin: 8px 12px 14px;
-  opacity: 0.6;
-}
-
-/* ===== LP Disc Effect ===== */
+/* ===== LP Disc (뒤에 숨겨둠) ===== */
 .lp-card::after {
   content: "";
   position: absolute;
-  top: 20px;
-  right: -60px;
+  top: 22px;
+  right: 30px;              /* 카드 안쪽에 숨김 */
   width: 120px;
   height: 120px;
-  background: radial-gradient(circle, #111 30%, #333 31%, #111 60%);
+  background: radial-gradient(
+    circle,
+    #111 30%,
+    #444 31%,
+    #222 55%,
+    #111 70%
+  );
   border-radius: 50%;
-  transition: right 0.4s ease;
+  z-index: -1;              /* 🔥 카드 뒤 */
+  transition: transform 0.45s ease;
 }
 
+/* hover 시 LP판만 오른쪽으로 */
 .lp-card:hover::after {
-  right: -20px;
+  transform: translateX(50px);
 }
+
