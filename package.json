@@ -1,0 +1,13 @@
+{
+  "name": "lp-project",
+  "version": "1.0.0",
+  "description": "LP collection Discogs fetcher",
+  "type": "module",
+  "scripts": {
+    "fetch": "node scripts/fetchDiscogs.js"
+  },
+  "dependencies": {
+    "csv-parser": "^3.2.0",
+    "node-fetch": "^3.3.2"
+  }
+}
