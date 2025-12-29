@@ -14,13 +14,16 @@ function render(data) {
   list.innerHTML = "";
   data.forEach(lp => {
     const div = document.createElement("div");
-    div.className = "album-card";
+    div.className = "lp-card";
     div.innerHTML = `
-      <img src="${lp.image || 'images/no-image.png'}">
-      <h3>${lp.name}</h3>
-      <p>${lp.가수 || ""}</p>
-      <span>${lp.category || ""}</span>
-    `;
+  <img src="${lp.image || 'images/no-image.png'}">
+  <div class="lp-info">
+    <div class="lp-title">${lp.name}</div>
+    <div class="lp-artist">${lp.가수 || ""}</div>
+    <div class="lp-meta">${lp.category || ""}</div>
+  </div>
+`;
+
     div.onclick = () => {
       location.href = `detail.html?id=${lp.id}`;
     };
