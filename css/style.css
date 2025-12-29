@@ -1,172 +1,103 @@
-/* =========================
-   기본 리셋
-========================= */
 * {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
-  font-family: "Pretendard", "Apple SD Gothic Neo", sans-serif;
-  background: #0e0e0e;
+  background: #0f0f0f;
   color: #fff;
+  font-family: "Pretendard", system-ui, sans-serif;
 }
 
-/* =========================
-   상단 검색 영역 (있다면)
-========================= */
-header {
-  padding: 24px 40px;
-}
-
-input[type="text"] {
-  width: 100%;
-  max-width: 420px;
-  padding: 12px 16px;
-  border-radius: 10px;
-  border: none;
-  outline: none;
-  background: #1a1a1a;
-  color: #fff;
-}
-
-/* =========================
-   LP 리스트 (가장 중요)
-========================= */
-#list {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 가로 4개 */
-  gap: 28px;
-  padding: 40px;
+/* ===== Layout ===== */
+.container {
   max-width: 1400px;
   margin: 0 auto;
+  padding: 40px 20px;
 }
 
-/* =========================
-   LP 카드
-========================= */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 28px;
+}
+
+.search-box input {
+  padding: 10px 14px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+}
+
+/* ===== Grid ===== */
+.lp-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 28px;
+}
+
+/* ===== Card ===== */
 .lp-card {
   position: relative;
-  background: #121212;
-  padding: 18px;
-  border-radius: 14px 18px 16px 12px;
-  cursor: pointer;
+  background: #151515;
+  border-radius: 14px;
   overflow: hidden;
-
+  cursor: pointer;
   transform: rotate(-0.6deg);
-  transition:
-    transform 0.35s ease,
-    box-shadow 0.35s ease;
-}
-
-.lp-card:nth-child(even) {
-  transform: rotate(0.6deg);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .lp-card:hover {
-  transform: translateX(-12px) rotate(0deg);
-  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.7);
+  transform: rotate(0deg) translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.6);
 }
 
-/* =========================
-   LP 이미지
-========================= */
+/* ===== Image ===== */
 .lp-card img {
   width: 100%;
-  aspect-ratio: 1 / 1;
-  object-fit: cover;
-  border-radius: 10px;
-  position: relative;
-  z-index: 2;
+  height: 240px;          /* 🔥 이게 핵심 */
+  object-fit: cover;      /* 🔥 이게 핵심 */
+  display: block;
 }
 
-/* =========================
-   LP 판 (호버 시 등장)
-========================= */
-.lp-card::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  right: -50%;
-  width: 140%;
-  height: 140%;
-  background: radial-gradient(
-    circle at center,
-    #555 0%,
-    #333 35%,
-    #1c1c1c 55%,
-    #000 100%
-  );
-  border-radius: 50%;
-  transform: translateY(-50%);
-  opacity: 0;
-  transition:
-    right 0.45s ease,
-    opacity 0.45s ease;
-  z-index: 1;
-}
-
-.lp-card:hover::after {
-  right: -18%;
-  opacity: 1;
-}
-
-/* =========================
-   텍스트 영역
-========================= */
+/* ===== Info ===== */
 .lp-card h3 {
-  font-size: 15px;
-  margin: 12px 0 4px;
-  font-weight: 600;
+  font-size: 16px;
+  margin: 12px 12px 4px;
 }
 
 .lp-card p {
   font-size: 13px;
-  margin: 0;
-  opacity: 0.7;
+  opacity: 0.8;
+  margin: 0 12px;
 }
 
 .lp-card span {
   display: inline-block;
-  margin-top: 6px;
-  font-size: 12px;
-  opacity: 0.5;
+  font-size: 11px;
+  margin: 8px 12px 14px;
+  opacity: 0.6;
 }
 
-/* =========================
-   상세 페이지
-========================= */
-.detail-container {
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 60px 40px;
+/* ===== LP Disc Effect ===== */
+.lp-card::after {
+  content: "";
+  position: absolute;
+  top: 20px;
+  right: -60px;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, #111 30%, #333 31%, #111 60%);
+  border-radius: 50%;
+  transition: right 0.4s ease;
 }
 
-.detail-container img {
-  width: 320px;
-  max-width: 100%;
-  border-radius: 14px;
-  box-shadow: 0 30px 60px rgba(0,0,0,0.7);
-}
-
-/* =========================
-   반응형
-========================= */
-@media (max-width: 1200px) {
-  #list {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media (max-width: 800px) {
-  #list {
-    grid-template-columns: repeat(2, 1fr);
-    padding: 24px;
-  }
-}
-
-@media (max-width: 480px) {
-  #list {
-    grid-template-columns: 1fr;
-  }
+.lp-card:hover::after {
+  right: -20px;
 }
