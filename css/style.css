@@ -228,3 +228,131 @@ h1{
 @media (max-width: 520px){
   .lp-grid{ grid-template-columns: 1fr; }
 }
+
+/* =========================
+   Detail Page Layout
+========================= */
+
+.back-link{
+  display: inline-block;
+  margin: 24px 24px 0;
+  color: rgba(255,255,255,.75);
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.back-link:hover{
+  text-decoration: underline;
+}
+
+.detail-container{
+  max-width: 1200px;
+  margin: 20px auto 80px;
+  padding: 0 24px;
+}
+
+/* 종이 한 장 */
+.detail-paper{
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  gap: 48px;
+
+  background: linear-gradient(180deg, #1a1a1a, #141414);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 22px;
+  padding: 40px;
+
+  box-shadow: 0 30px 80px rgba(0,0,0,.6);
+  position: relative;
+}
+
+/* 종이 질감 */
+.detail-paper::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius: inherit;
+  pointer-events:none;
+  background:
+    radial-gradient(220px 180px at 20% 20%, rgba(255,255,255,.06), transparent 60%),
+    radial-gradient(260px 200px at 80% 30%, rgba(255,255,255,.05), transparent 62%),
+    repeating-linear-gradient(135deg, rgba(255,255,255,.015) 0 3px, rgba(0,0,0,.02) 3px 6px);
+  mix-blend-mode: overlay;
+}
+
+/* ===== Left (앨범 커버) ===== */
+.detail-left{
+  position: relative;
+}
+
+.detail-left img{
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 18px;
+  box-shadow: 0 26px 60px rgba(0,0,0,.7);
+}
+
+/* ===== Right (정보) ===== */
+.detail-right{
+  display: flex;
+  flex-direction: column;
+  gap: 26px;
+}
+
+.detail-title{
+  margin: 0;
+  font-size: 28px;
+  line-height: 1.2;
+}
+
+/* 메타 정보 */
+.detail-meta p{
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  margin: 6px 0;
+  font-size: 14px;
+  color: rgba(255,255,255,.85);
+}
+
+.detail-meta span{
+  color: rgba(255,255,255,.55);
+}
+
+/* 트랙 */
+.detail-tracks h3{
+  margin: 16px 0 6px;
+  font-size: 15px;
+}
+
+.detail-tracks pre{
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 12px;
+  padding: 14px;
+  white-space: pre-wrap;
+  font-size: 13px;
+}
+
+/* 메모 */
+.detail-memo{
+  margin-top: 10px;
+  padding: 16px;
+  border-left: 3px solid rgba(255,255,255,.25);
+  font-size: 14px;
+  color: rgba(255,255,255,.85);
+  background: rgba(255,255,255,.04);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 900px){
+  .detail-paper{
+    grid-template-columns: 1fr;
+    padding: 28px;
+  }
+
+  .detail-left{
+    max-width: 420px;
+    margin: 0 auto;
+  }
+}

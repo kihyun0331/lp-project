@@ -8,14 +8,33 @@ fetch("./data/lp.json")
     if (!lp) return;
 
     box.innerHTML = `
-      <h2>${lp.name}</h2>
+  <div class="detail-paper">
+    <div class="detail-left">
       <img src="${lp.image || 'images/no-image.png'}">
-      <p><b>가수:</b> ${lp.가수 || ""}</p>
-      <p><b>발매:</b> ${lp.수록일자 || ""}</p>
-      <p><b>국가:</b> ${lp.국가 || ""}</p>
-      <p><b>위치:</b> ${lp.위치 || ""}</p>
-      <pre>${lp.side1 || ""}</pre>
-      <pre>${lp.side2 || ""}</pre>
-      <p>${lp.memo || ""}</p>
-    `;
+    </div>
+
+    <div class="detail-right">
+      <h2 class="detail-title">${lp.name}</h2>
+
+      <div class="detail-meta">
+        <p><span>아티스트</span>${lp.가수 || "-"}</p>
+        <p><span>장르</span>${lp.category || "-"}</p>
+        <p><span>발매</span>${lp.수록일자 || "-"}</p>
+        <p><span>국가</span>${lp.국가 || "-"}</p>
+        <p><span>보관 위치</span>${lp.위치 || "-"}</p>
+      </div>
+
+      <div class="detail-tracks">
+        <h3>Side A</h3>
+        <pre>${lp.side1 || "-"}</pre>
+
+        <h3>Side B</h3>
+        <pre>${lp.side2 || "-"}</pre>
+      </div>
+
+      ${lp.memo ? `<div class="detail-memo">${lp.memo}</div>` : ""}
+    </div>
+  </div>
+`;
+
   });
