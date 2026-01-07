@@ -1,86 +1,230 @@
-* {
-  box-sizing: border-box;
+* { box-sizing: border-box; }
+
+:root{
+  --bg:#0f0f0f;
+  --paper:#151515;
+  --paper2:#1a1a1a;
+  --text:#ffffff;
+  --muted: rgba(255,255,255,.72);
+  --muted2: rgba(255,255,255,.55);
+  --shadow: 0 20px 50px rgba(0,0,0,.6);
 }
 
-body {
-  margin: 0;
-  background: #0f0f0f;
-  color: #fff;
-  font-family: "Pretendard", system-ui, sans-serif;
+body{
+  margin:0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Pretendard", system-ui, -apple-system, sans-serif;
 }
 
 /* ===== Layout ===== */
-.container {
+.container{
   max-width: 1400px;
   margin: 0 auto;
-  padding: 40px 20px;
+  padding: 36px 20px 60px;
 }
 
-header {
-  display: flex;
+header{
+  display:flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 30px;
+  gap: 16px;
+  margin-bottom: 26px;
 }
 
-h1 {
-  margin: 0;
+h1{
+  margin:0;
   font-size: 28px;
+  letter-spacing: .2px;
 }
 
-.search-box input {
-  padding: 10px 14px;
-  border-radius: 8px;
-  border: none;
+.search-box input{
+  width: 340px;
+  max-width: 100%;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,.08);
+  background: rgba(255,255,255,.06);
+  color: #fff;
   outline: none;
 }
 
-/* ===== Grid ===== */
-.lp-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 28px;
+.search-box input:focus{
+  border-color: rgba(255,255,255,.22);
+  background: rgba(255,255,255,.08);
 }
 
-/* ===== Card ===== */
-.lp-card {
+/* ===== Grid: "칸" 느껴지게 간격 + 정렬 ===== */
+.lp-grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 34px;                 /* ✅ 따닥따닥 방지 */
+  align-items: start;
+}
+
+/* ===== Card: 종이/구겨진 느낌 + 테두리/여백 ===== */
+.lp-card{
   position: relative;
-  background: #151515;
-  border-radius: 14px;
-  overflow: visible; /* 🔥 중요 */
+  background: linear-gradient(180deg, var(--paper2), var(--paper));
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 18px 14px 20px 16px; /* ✅ 살짝 삐뚤/불균일 */
+  padding: 16px;
   cursor: pointer;
-  transform: rotate(-0.6deg);
-  transition: transform 0.35s ease, box-shadow 0.35s ease;
+
+  overflow: visible;         /* LP판이 밖으로 나와야 함 */
+  box-shadow: 0 10px 24px rgba(0,0,0,.35);
+  transition: transform .35s ease, box-shadow .35s ease, border-color .35s ease;
+  transform-origin: 12% 50%;
 }
 
-/* 카드가 왼쪽으로 */
-.lp-card:hover {
-  transform: rotate(0deg) translateX(-14px) translateY(-6px);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+/* 구겨진 종이 질감(이미지 없이 CSS로) */
+.lp-card::before{
+  content:"";
+  position:absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events:none;
+  opacity: .35;
+  background:
+    radial-gradient(120px 90px at 18% 22%, rgba(255,255,255,.08), transparent 60%),
+    radial-gradient(140px 110px at 82% 28%, rgba(255,255,255,.06), transparent 62%),
+    radial-gradient(220px 160px at 35% 85%, rgba(0,0,0,.22), transparent 65%),
+    repeating-linear-gradient(135deg, rgba(255,255,255,.02) 0 3px, rgba(0,0,0,.02) 3px 6px);
+  mix-blend-mode: overlay;
 }
 
-/* ===== LP Disc (뒤에 숨겨둠) ===== */
-.lp-card::after {
-  content: "";
-  position: absolute;
-  top: 22px;
-  right: 30px;              /* 카드 안쪽에 숨김 */
-  width: 120px;
-  height: 120px;
-  background: radial-gradient(
-    circle,
-    #111 30%,
-    #444 31%,
-    #222 55%,
-    #111 70%
-  );
+/* 안쪽 "액자" 느낌 */
+.lp-card .lp-info{
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255,255,255,.08);
+}
+
+/* ===== Cover(Image): 정사각 + 카드 안에 딱 ===== */
+.lp-card img{
+  width: 100%;
+  aspect-ratio: 1 / 1;       /* ✅ 커버 비율 고정 */
+  object-fit: cover;
+  display:block;
+  border-radius: 14px;
+  box-shadow: 0 14px 28px rgba(0,0,0,.45);
+  position: relative;
+  z-index: 2;                /* LP판보다 위 */
+}
+
+/* ===== Text ===== */
+.lp-title{
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 1.25;
+  margin-bottom: 6px;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;     /* 제목 길면 2줄 */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.lp-artist{
+  font-size: 13px;
+  color: var(--muted);
+  margin-bottom: 6px;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.lp-meta{
+  font-size: 12px;
+  color: var(--muted2);
+}
+
+/* ===== LP Disc (뒤에서 오른쪽으로 "쑥") ===== */
+.lp-card::after{
+  content:"";
+  position:absolute;
+  top: 22px;                 /* 커버 상단과 비슷하게 */
+  right: 18px;               /* 처음엔 커버 뒤에 숨어있게 */
+  width: 128px;
+  height: 128px;
   border-radius: 50%;
-  z-index: -1;              /* 🔥 카드 뒤 */
-  transition: transform 0.45s ease;
+
+  /* LP 그루브 느낌 */
+  background:
+    radial-gradient(circle at center,
+      rgba(255,255,255,.18) 0 6%,
+      rgba(0,0,0,.0) 6% 10%,
+      rgba(255,255,255,.08) 10% 11%,
+      rgba(0,0,0,.0) 11% 18%,
+      rgba(255,255,255,.06) 18% 19%,
+      rgba(0,0,0,.0) 19% 62%,
+      rgba(255,255,255,.05) 62% 63%,
+      rgba(0,0,0,.0) 63% 100%
+    ),
+    conic-gradient(from 0deg,
+      rgba(255,255,255,.08),
+      rgba(0,0,0,.0),
+      rgba(255,255,255,.06),
+      rgba(0,0,0,.0),
+      rgba(255,255,255,.07),
+      rgba(0,0,0,.0)
+    );
+
+  box-shadow: 0 18px 40px rgba(0,0,0,.55);
+  z-index: 1;                /* ✅ 커버 뒤 */
+  opacity: 0;
+  transform: translateX(0) scale(.92);
+  transition: transform .45s ease, opacity .35s ease;
 }
 
-/* hover 시 LP판만 오른쪽으로 */
-.lp-card:hover::after {
-  transform: translateX(50px);
+/* ===== Hover: 커버(카드)는 왼쪽/기울기, LP판은 오른쪽 등장 ===== */
+.lp-card:hover{
+  /* "30도 느낌"은 rotateY로 주고, 살짝 기울임은 rotateZ로 */
+  transform: translateX(-14px) translateY(-6px) rotateZ(-2deg) rotateY(28deg);
+  box-shadow: var(--shadow);
+  border-color: rgba(255,255,255,.16);
 }
 
+.lp-card:hover::after{
+  opacity: 1;
+  transform: translateX(78px) scale(1); /* ✅ 오른쪽으로 쑥 */
+}
+
+/* ===== Detail page 기본 (현재 구조 유지용) ===== */
+#detail{
+  max-width: 980px;
+  margin: 40px auto;
+  padding: 0 20px 60px;
+}
+
+#detail img{
+  width: min(420px, 100%);
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  display:block;
+  margin: 14px 0 18px;
+}
+
+#detail pre{
+  background: rgba(255,255,255,.05);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 12px;
+  padding: 14px;
+  overflow:auto;
+  white-space: pre-wrap;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 900px){
+  header{ flex-direction: column; align-items: flex-start; }
+  .search-box input{ width: 100%; }
+  .lp-grid{ grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 24px; }
+}
+
+@media (max-width: 520px){
+  .lp-grid{ grid-template-columns: 1fr; }
+}
